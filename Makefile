@@ -1,5 +1,5 @@
 build: src/main/scala/*
-	sbt "runMain muxgen.MuxGenApp --target-dir=./build"
+	sbt "runMain muxgen.NamedMuxGenApp --target-dir=./build"
 
 test: src/main/scala/* src/test/scala/*
-	sbt "testOnly muxgen.MuxgenTester"
+	sbt "testOnly muxgen.*Tester"

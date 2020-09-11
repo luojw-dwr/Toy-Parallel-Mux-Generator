@@ -13,8 +13,8 @@ object MuxPow2 {
         } else {
             val sel_MSB = sel(rank - 1)
             val sel_LBS = sel(rank - 2, 0)
-            val xsG = ((n >> 1) to (n - 1)).map((idx: Int) => xs(idx))
-            val xsL = (0 to ((n >> 1) - 1)).map((idx: Int) => xs(idx))
+            val xsG = ((n >> 1) until n).map((idx: Int) => xs(idx))
+            val xsL = (0 until (n >> 1)).map((idx: Int) => xs(idx))
             val muxG = MuxPow2(gen, sel_LBS, xsG)
             val muxL = MuxPow2(gen, sel_LBS, xsL)
             Mux2(gen, sel_MSB, VecInit(muxL, muxG))
@@ -37,8 +37,8 @@ object MuxAny {
             val sel_MSB = sel(rankCeil - 1)
             val sel_LBG = sel(log2Up(nG) - 1, 0)
             val sel_LBL = sel(rankFloor - 1, 0)
-            val xsG = (nL to (n - 1)).map((idx: Int) => xs(idx))
-            val xsL = (0 to (nL - 1)).map((idx: Int) => xs(idx))
+            val xsG = (nL until n).map((idx: Int) => xs(idx))
+            val xsL = (0 until nL).map((idx: Int) => xs(idx))
             val yG = if (nG == 1) {
                 xs(n - 1)
             } else {

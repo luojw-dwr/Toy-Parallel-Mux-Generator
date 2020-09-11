@@ -15,9 +15,9 @@ Notice that the interface is not registered.
 
 ## Design Internals
 
-For a given number $n$ of inputs where $n > 2$, let $n_{\text{low range}} = 2^{\lfloor\log_{2}(n)\rfloor}$. Notice that if and only if the MSB of `sel` is `0`, the index of the selected input lies in $[0, n_{\text{low range}})$. This observation allows us to:
+For a given number $n$ of inputs where $n > 2$, let $n_{\text{low range}} = 2^{\lfloor \log_{2}(n) \rfloor}$ and $n_{\text{high range}} = n - n_{\text{low range}} \leq n_{\text{low range}}$. Notice that , the index of the selected input lies in $[0, n_{\text{low range}})$ if and only if the MSB of `sel` is `0`. This observation allows us to:
 
-1. Divide the inputs into the first $n_{\text{low range}}$ inputs to an $n_{\text{low range}}$-mux and the last $n - n_{\text{low range}}$ inputs to an $(n - n_{\text{low range}})$-mux.
+1. Divide the inputs into the first $n_{\text{low range}}$ inputs to an $n_{\text{low range}}$-mux and the last $n_{\text{high range}}$ inputs to an $n_{\text{high range}}$-mux. The `sel` of both smaller muxes are connected with the lower $\lfloor \log_{2}(n) \rfloor$ bits of `sel`. *(Though $n_{\text{high range}}$ is often smaller than $n_{\text{low range}}$ thus may only require a `sel` with smaller bit width, the bit width of the interface of the $n_{\text{high range}}$-mux deals with the truncation implicitly.)*
 2. Select the from their outputs using a `Mux2` with the MSB of `sel`.
 
 This bisection scheme is applied recursively until $n = 1$ or $n = 2$. When $n = 1$, a wire of the last input is directly used; when $n = 2$, a `Mux2` is instantiated.
@@ -31,9 +31,9 @@ There are two styles of module hierarchy is provided:
 * `MuxN[T <: Data](gen: T, n: Int)` generates a single module containing `Mux2`s and the wires.
 * `NamedMuxN[T <: Data, NNat <: Nat](gen: T, nat: NNat)` generates the desired module and all the involved $2^{m}$-muxes $(m \leq \lfloor\log_{2}(n)\rfloor)$.
 
-## Features
+## Type Features
 
-As an experimental toy project, a few additional features are added to some software guy's concerns:
+As an experimental toy project, a few features in type system are added to some software guy's concerns:
 
 * Generic type: Both `MuxN` and `NamedMuxN` supports generic types of inputs.
 * Type safety: Experimentally, `NamedMuxN` shows how to differ muxes with different numbers of inputs at type level. (Maybe an overkill.)

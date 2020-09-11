@@ -28,8 +28,8 @@ Notice that the generated mux is combinational.
 
 There are two styles of module hierarchy is provided:
 
-* `MuxN[T <: Data](gen: T, n: Int)` generates a single module containing `Mux2`s and the wires.
-* `NamedMuxN[T <: Data, NNat <: Nat](gen: T, nat: NNat)` generates the desired module and all the involved $2^{m}$-muxes $(m \leq \lfloor\log_{2}(n)\rfloor)$.
+* `MuxN[T <: Data](gen: T, n: Int)` generates a single module containing `Mux2`s and the wires. ![Mux5 Hierachy](images/Mux5.dot.svg)
+* `NamedMuxN[T <: Data, NNat <: Nat](gen: T, nat: NNat)` generates the desired module and all the involved $2^{m}$-muxes $(m \leq \lfloor\log_{2}(n)\rfloor)$. ![NamedMux4](images/NamedMux4.dot.svg) ![NamedMux5](images/NamedMux5.dot.svg)
 
 ## Type Features
 

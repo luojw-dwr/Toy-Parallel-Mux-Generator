@@ -1,5 +1,11 @@
 package muxgen
 
+/*
+* Representation of natural numbers in type system.
+* For a given Int n >= 0, use Nat(n) to get nat.
+* For a given Nat nat, use nat.asInt to get Int.
+*/
+
 sealed trait Nat {
     val asInt: Int
     def succ: Nat

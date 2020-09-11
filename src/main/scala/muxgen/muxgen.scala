@@ -52,6 +52,7 @@ object MuxAny {
 
 class MuxN[T <: Data](private val gen: T, val n: Int) extends Module {
     assert(n > 1)
+    override def desiredName = s"Mux${n.toString}"
     val io = IO(MuxIO(gen, n))
     io.y := MuxAny(gen, n, io.sel, io.xs)
 }

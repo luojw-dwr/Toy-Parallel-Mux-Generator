@@ -9,7 +9,7 @@ With the number $n$ and type `T <: Data` of inputs, the generated mux has an `Mu
 
 * `sel`: input, an `UInt` instance with its width `log2Up(n)`.
 * `xs`: input, a `Vec[T]` instance with its length $n$.
-* `y`: output, a `T` instance.
+* `y`: output, a `T` instance. Conceptually we should have `y == xs(sel)`.
 
 Notice that the interface is not registered.
 
